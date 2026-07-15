@@ -20,7 +20,10 @@ DELETE:
 
 Tampilan data setelah GET, POST, PUT, dan DELETE: 
 
+<img width="755" height="503" alt="image" src="https://github.com/user-attachments/assets/787eb4b2-f37f-4173-8f1a-384a323a9450" />
 <img width="772" height="499" alt="image" src="https://github.com/user-attachments/assets/78eaf12f-d41c-4d0c-aea1-d97c0dbb37ab" />
+
+
 
 
 
