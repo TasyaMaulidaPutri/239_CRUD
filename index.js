@@ -18,6 +18,37 @@ const pool = new Pool({
     port: 5432
 })
 
+// ==================== READ (all) ====================
+app.get('/', (req, res) => {
+    console.log("TEST DATA");
+    pool.query('SELECT * FROM biodata ORDER BY id ASC')
+        .then(testData => {
+            console.log(testData.rows);
+            res.json(testData.rows);
+        })
+        .catch(err => {
+            console.error('Error executing query', err.stack);
+            res.status(500).send("Database Error");
+        });
+});
+
+// ==================== READ (by id) ====================
+app.get('/biodata/:id', (req, res) => {
+    const { id } = req.params;
+
+    pool.query('SELECT * FROM biodata WHERE id = $1', [id])
+        .then(result => {
+            if (result.rows.length === 0) {
+                return res.status(404).json({ message: 'Data tidak ditemukan' });
+            }
+            res.json(result.rows[0]);
+        })
+        .catch(err => {
+            console.error('Error executing query', err.stack);
+            res.status(500).send("Database Error");
+        });
+});
+
 
 
 app.listen(port, () => {
