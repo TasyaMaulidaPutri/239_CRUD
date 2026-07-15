@@ -49,6 +49,27 @@ app.get('/biodata/:id', (req, res) => {
         });
 });
 
+// ==================== CREATE ====================
+app.post('/biodata', (req, res) => {
+    const { nama, nim, kelas } = req.body;
+
+    if (!nama || !nim) {
+        return res.status(400).json({ message: 'nama dan nim wajib diisi' });
+    }
+
+    pool.query(
+        'INSERT INTO biodata (nama, nim, kelas) VALUES ($1, $2, $3) RETURNING *',
+        [nama, nim, kelas]
+    )
+        .then(result => {
+            res.status(201).json(result.rows[0]);
+        })
+        .catch(err => {
+            console.error('Error executing query', err.stack);
+            res.status(500).send("Database Error");
+        });
+});
+
 
 
 app.listen(port, () => {
